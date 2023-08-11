@@ -1,0 +1,80 @@
+#Bagel Game ...
+import random
+countingGuess = [1,2,3,4,5,6,7,8,9,10]
+
+print("This is a Bagel Game (Guessing Game)")
+print("While Guessing\nYou will be given clues on how you are getting the clue")
+print("Clues like:\n Pico - Which means you got a digit, but in the wrong position")
+print("Fermi - Which means you got a digit and in the right position\n Bagel - which means No digit is correct")
+
+Validation = input("Lets do this\n(Yes/No) >")
+if Validation.lower().startswith('y'):
+    
+  while True: #To replay the game, if needed by game user.
+
+   computerNumber = ['1','2','3','4','5','6','7','8','9'] 
+   computerGuessingNumber = []
+   random.shuffle(computerNumber) #shuffling number for computerNumber.
+   for i in range(3): # code of block for storing 3 digit number from the computer shuffling.
+     computerGuessingNumber.append(computerNumber[i])
+
+   
+
+   count = 1
+   print("Okay ... start guessing")
+  
+   while 10 >= count: #for 10 Guesses.
+     
+     clues = []
+     while True:  #for validation of userGuessing, if it is only three digit number.
+      #if not, will repeat itself again, until the user type up a three digit number.
+     
+      print("Guess #{}" .format(count))
+      usersGuess = input()
+      if usersGuess.isdigit():
+
+       if len(usersGuess) == 3:
+         break
+       elif len(usersGuess) > 3:
+         print('Please, it is higher than 3\nType only 3 digit number')
+       elif len(usersGuess) < 3:
+         print("Please it is lower than three\nType only a 3 digit number")
+      else:
+        print("Please ... Type in three digit numbers not alphabet.")
+      
+    
+
+
+
+     usersGuess = list(usersGuess)
+     if usersGuess == computerGuessingNumber: #If the user got it completely
+      print('You got it')
+      break
+   
+     for x in range(3): #If not gotten completely, then if some of the digit were written properly will give some clue.
+      if usersGuess[x] == computerGuessingNumber[x]:
+       clues.append("fermi")
+      elif usersGuess[x] in computerGuessingNumber:
+       clues.append("Pico")
+
+     if len(clues) == 0: #If the user, did not get any of them guessing digit numbers.
+       clues.append("Bagel")
+     
+     clues.sort()
+     print(clues) #printing clues of how the user guessed the computer 3 digit numbers.
+    
+     if count == 10: #stopping the game if the user has used the 10 guessing chances.
+      print("You have ran out of guesses")
+      print("This is the number i guessed {} " .format(computerGuessingNumber))
+      break
+     
+     count = count + 1
+
+   print("Would you like to play again. (Yes/No)") #if the user will play again.
+   Replay = input(">").lower()
+   if Replay == "no" :
+     break
+
+elif Validation.lower().startswith('n'): # Computer reaction response, if you are not playing again.
+  print("Okay\nThanks for your contribution")
+  print("See you next Time")
